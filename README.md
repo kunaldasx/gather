@@ -1,6 +1,6 @@
-# LinkedIn Clone MERN
+# Gather
 
-A simplified LinkedIn-like social network built with the **MERN** stack (MongoDB, Express, React, Node). This repository contains a full-stack example demonstrating common features found in professional social networks: user authentication, profiles, posts with media, likes/comments, connections, and notifications.
+A simplified Gather-like social network built with the **MERN** stack (MongoDB, Express, React, Node). This repository contains a full-stack example demonstrating common features found in professional social networks: user authentication, profiles, posts with media, likes/comments, connections, and notifications.
 
 > ⚠️ This project is intended for learning and demo purposes only. It is **not** production hardened — do not use it to store real user data without adding security, validation, and compliance checks.
 

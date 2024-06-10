@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
 		},
 		headline: {
 			type: String,
-			default: "Linkedin User",
+			default: "Gather User",
 		},
 		location: {
 			type: String,
@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema(
 			},
 		],
 	},
-	{ timestamps: true }
+	{ timestamps: true },
 );
 
 const User = mongoose.model("User", userSchema);

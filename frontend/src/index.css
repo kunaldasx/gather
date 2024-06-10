@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0a66c2;
-  --color-primary-dark: #0f59a3;
-  --color-secondary: #ffffff;
-  --color-accent: #7fc15e;
-  --color-neutral: #000000;
-  --color-base-100: #f3f2ef;
-  --color-info: #5e5e5e;
-  --color-success: #057642;
-  --color-warning: #f5c75d;
-  --color-error: #cc1016;
+	--color-primary: #0a66c2;
+	--color-primary-dark: #0f59a3;
+	--color-secondary: #ffffff;
+	--color-accent: #7fc15e;
+	--color-neutral: #000000;
+	--color-base-100: #f3f2ef;
+	--color-info: #5e5e5e;
+	--color-success: #057642;
+	--color-warning: #f5c75d;
+	--color-error: #cc1016;
 }
 
 /* @layer base {
@@ -20,14 +20,14 @@
 } */
 
 @layer base {
-  body {
-    @apply overflow-y-scroll;
-  }
+	body {
+		@apply overflow-y-scroll;
+	}
 }
 
-/* --color-primary: #0A66C2, // LinkedIn Blue
+/* --color-primary: #0A66C2, // Gather Blue
 	--color-secondary: #FFFFFF, // White
-	--color-accent: #7FC15E, // LinkedIn Green (for accents)
+	--color-accent: #7FC15E, // Gather Green (for accents)
 	--color-neutral: #000000, // Black (for text)
 	--color-"base-100": #F3F2EF, // Light Gray (background)
 	--color-info: #5E5E5E, // Dark Gray (for secondary text)

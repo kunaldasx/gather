@@ -6,12 +6,11 @@ import {
 } from "./emailTemplates.js";
 
 export const sendWelcomeEmail = async (email, name, profileUrl) => {
-
 	try {
 		const response = await transporter.sendMail({
 			from: sender,
 			to: email,
-			subject: "Welcome to LinkedIn",
+			subject: "Welcome to Gather",
 			html: createWelcomeEmailTemplate(name, profileUrl),
 			category: "welcome",
 		});
@@ -27,9 +26,8 @@ export const sendCommentNotificationEmail = async (
 	recipientName,
 	commenterName,
 	postUrl,
-	commentContent
+	commentContent,
 ) => {
-
 	try {
 		const response = await transporter.sendMail({
 			from: sender,
@@ -39,7 +37,7 @@ export const sendCommentNotificationEmail = async (
 				recipientName,
 				commenterName,
 				postUrl,
-				commentContent
+				commentContent,
 			),
 			category: "comment_notification",
 		});
@@ -53,9 +51,8 @@ export const sendConnectionAcceptedEmail = async (
 	senderEmail,
 	senderName,
 	recipientName,
-	profileUrl
+	profileUrl,
 ) => {
-
 	try {
 		const response = await transporter.sendMail({
 			from: sender,
@@ -64,12 +61,11 @@ export const sendConnectionAcceptedEmail = async (
 			html: createConnectionAcceptedEmailTemplate(
 				senderName,
 				recipientName,
-				profileUrl
+				profileUrl,
 			),
 			category: "connection_accepted",
 		});
 	} catch (error) {
-
 		console.error("Error sending connection accepted email:", error);
 	}
 };

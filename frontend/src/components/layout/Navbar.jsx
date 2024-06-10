@@ -3,13 +3,18 @@ import toast from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Bell, Home, LogOut, Search, User, Users, SquarePlus, X } from "lucide-react";
-
-
-
+import {
+	Bell,
+	Home,
+	LogOut,
+	Search,
+	User,
+	Users,
+	SquarePlus,
+	X,
+} from "lucide-react";
 
 const Navbar = () => {
-
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -63,7 +68,6 @@ const Navbar = () => {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-
 	// Search query
 	const { data: searchData, isFetching } = useQuery({
 		queryKey: ["searchUsers", searchQuery],
@@ -91,7 +95,6 @@ const Navbar = () => {
 		setIsSearchActive(false);
 		setSearchQuery("");
 		setHighlightedIndex(-1);
-
 	}, [location.pathname]);
 
 	// Handle keyboard navigation
@@ -100,7 +103,7 @@ const Navbar = () => {
 			if (e.key === "ArrowDown") {
 				e.preventDefault();
 				setHighlightedIndex((prev) =>
-					prev < searchResults.length - 1 ? prev + 1 : prev
+					prev < searchResults.length - 1 ? prev + 1 : prev,
 				);
 			} else if (e.key === "ArrowUp") {
 				e.preventDefault();
@@ -140,9 +143,10 @@ const Navbar = () => {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	const unreadNotificationCount = notifications?.data.filter((notif) => !notif.read).length;
+	const unreadNotificationCount = notifications?.data.filter(
+		(notif) => !notif.read,
+	).length;
 	const unreadConnectionRequestsCount = connectionRequests?.data?.length;
-
 
 	return (
 		<>
@@ -160,7 +164,11 @@ const Navbar = () => {
 					<div className="flex justify-between items-center py-2">
 						<div className="flex items-center justify-center gap-4">
 							<Link to="/">
-								<img className="h-8 rounded" src="/small-logo.png" alt="LinkedIn" />
+								<img
+									className="h-8 rounded"
+									src="/small-logo.png"
+									alt="Gather"
+								/>
 							</Link>
 
 							{/* Search */}
@@ -191,16 +199,21 @@ const Navbar = () => {
 											className="absolute top-full left-0 mt-1 w-full bg-white shadow-lg rounded-md max-h-60 overflow-y-auto z-50"
 										>
 											{isFetching && (
-												<div className="px-4 py-2 text-gray-500">Searching...</div>
+												<div className="px-4 py-2 text-gray-500">
+													Searching...
+												</div>
 											)}
 											{!isFetching && searchResults.length === 0 && (
-												<div className="px-4 py-2 text-gray-500">No results found</div>
+												<div className="px-4 py-2 text-gray-500">
+													No results found
+												</div>
 											)}
 											{searchResults.map((user, index) => (
 												<div
 													key={user._id}
-													className={`flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-100 cursor-pointer ${index === highlightedIndex ? "bg-gray-300" : ""
-														}`}
+													className={`flex items-center px-4 py-3 hover:bg-gray-100 transition-colors duration-100 cursor-pointer ${
+														index === highlightedIndex ? "bg-gray-300" : ""
+													}`}
 													onClick={() => handleSearchResultClick(user.username)}
 												>
 													<div className="h-8 w-8 rounded-full mr-3 overflow-hidden bg-gray-200 flex items-center justify-center">
@@ -212,7 +225,9 @@ const Navbar = () => {
 													</div>
 
 													<div className="flex flex-col">
-														<span className="text-sm font-medium text-gray-800">{user.name}</span>
+														<span className="text-sm font-medium text-gray-800">
+															{user.name}
+														</span>
 													</div>
 												</div>
 											))}
@@ -228,7 +243,10 @@ const Navbar = () => {
 								<>
 									<div className=" md:flex lg:flex items-center gap-2 md:gap-6">
 										<div className="hidden md:flex lg:flex items-center gap-2 md:gap-6">
-											<Link to="/" className="text-neutral flex flex-col items-center">
+											<Link
+												to="/"
+												className="text-neutral flex flex-col items-center"
+											>
 												<Home size={20} />
 												<span className="text-xs hidden md:block">Home</span>
 											</Link>
@@ -238,7 +256,9 @@ const Navbar = () => {
 												className="text-neutral flex flex-col items-center relative"
 											>
 												<Users size={20} />
-												<span className="text-xs hidden md:block">My Network</span>
+												<span className="text-xs hidden md:block">
+													My Network
+												</span>
 												{unreadConnectionRequestsCount > 0 && (
 													<span className="absolute -top-1 -right-1 md:right-4 bg-red-700 text-white text-xs rounded-full size-3 md:size-4 flex items-center justify-center">
 														{unreadConnectionRequestsCount}
@@ -251,7 +271,9 @@ const Navbar = () => {
 												className="text-neutral flex flex-col items-center relative"
 											>
 												<Bell size={20} />
-												<span className="text-xs hidden md:block">Notifications</span>
+												<span className="text-xs hidden md:block">
+													Notifications
+												</span>
 												{unreadNotificationCount > 0 && (
 													<span className="absolute -top-1 -right-1 md:right-4 bg-red-700 text-white text-xs rounded-full size-3 md:size-4 flex items-center justify-center">
 														{unreadNotificationCount}
@@ -287,7 +309,9 @@ const Navbar = () => {
 													alt={authUser?.name || "Profile"}
 													className="size-8 md:size-[22px] lg:size-[22px] rounded-full object-cover border border-gray-300 hover:opacity-90 transition"
 												/>
-												<span className="text-xs hidden md:block lg:block">Me</span>
+												<span className="text-xs hidden md:block lg:block">
+													Me
+												</span>
 											</button>
 
 											{isDropdownOpen && (
@@ -314,18 +338,20 @@ const Navbar = () => {
 												</div>
 											)}
 										</div>
-
 									</div>
-
-
-
 								</>
 							) : (
 								<>
-									<Link to="/login" className="btn btn-ghost px-5 py-1 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-200 flex items-center">
+									<Link
+										to="/login"
+										className="btn btn-ghost px-5 py-1 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-200 flex items-center"
+									>
 										Sign In
 									</Link>
-									<Link to="/signup" className="btn btn-primary px-5 py-1 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-200 flex items-center">
+									<Link
+										to="/signup"
+										className="btn btn-primary px-5 py-1 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-200 flex items-center"
+									>
 										Join now
 									</Link>
 								</>
@@ -342,10 +368,11 @@ const Navbar = () => {
 						{/* Home */}
 						<Link
 							to="/"
-							className={`flex flex-col items-center border-none px-5 py-2 ${location.pathname === "/"
-								? "text-blue-600 bg-gray-200"
-								: "text-gray-600"
-								}`}
+							className={`flex flex-col items-center border-none px-5 py-2 ${
+								location.pathname === "/"
+									? "text-blue-600 bg-gray-200"
+									: "text-gray-600"
+							}`}
 						>
 							<Home size={22} />
 							<span className="text-[10px] mt-1">Home</span>
@@ -354,10 +381,11 @@ const Navbar = () => {
 						{/* My Network */}
 						<Link
 							to="/network"
-							className={`flex flex-col items-center relative border-none px-5 py-2 ${location.pathname.startsWith("/network")
-								? "text-blue-600 bg-gray-200"
-								: "text-gray-600"
-								}`}
+							className={`flex flex-col items-center relative border-none px-5 py-2 ${
+								location.pathname.startsWith("/network")
+									? "text-blue-600 bg-gray-200"
+									: "text-gray-600"
+							}`}
 						>
 							<Users size={22} />
 							<span className="text-[10px] mt-1">My Network</span>
@@ -371,8 +399,11 @@ const Navbar = () => {
 						{/* Post Create */}
 						<Link
 							to="/create-post"
-							className={`flex flex-col items-center border-none px-5 py-2 ${location.pathname === "/create-post" ? "text-blue-600 bg-gray-200" : "text-gray-600"
-								}`}
+							className={`flex flex-col items-center border-none px-5 py-2 ${
+								location.pathname === "/create-post"
+									? "text-blue-600 bg-gray-200"
+									: "text-gray-600"
+							}`}
 						>
 							<SquarePlus size={22} />
 							<span className="text-[10px] mt-1">Post</span>
@@ -381,10 +412,11 @@ const Navbar = () => {
 						{/* Notifications */}
 						<Link
 							to="/notifications"
-							className={`flex flex-col items-center relative border-none px-5 py-2 ${location.pathname.startsWith("/notifications")
-								? "text-blue-600 bg-gray-200"
-								: "text-gray-600"
-								}`}
+							className={`flex flex-col items-center relative border-none px-5 py-2 ${
+								location.pathname.startsWith("/notifications")
+									? "text-blue-600 bg-gray-200"
+									: "text-gray-600"
+							}`}
 						>
 							<Bell size={22} />
 							<span className="text-[10px] mt-1">Notifications</span>
@@ -398,10 +430,11 @@ const Navbar = () => {
 						{/* Profile */}
 						<Link
 							to={`/profile/${authUser?.username}`}
-							className={`flex flex-col items-center border-none px-5 py-2 ${location.pathname.startsWith(`/profile/${authUser?.username}`)
-								? "text-blue-600 bg-gray-200"
-								: "text-gray-600"
-								}`}
+							className={`flex flex-col items-center border-none px-5 py-2 ${
+								location.pathname.startsWith(`/profile/${authUser?.username}`)
+									? "text-blue-600 bg-gray-200"
+									: "text-gray-600"
+							}`}
 						>
 							<User size={22} />
 							<span className="text-[10px] mt-1">Me</span>

@@ -3,10 +3,12 @@ import User from "../models/user.model.js";
 
 export const protectRoute = async (req, res, next) => {
 	try {
-		const token = req.cookies["jwt-linkedin"];
+		const token = req.cookies["jwt-gather"];
 
 		if (!token) {
-			return res.status(401).json({ message: "Unauthorized - No Token Provided" });
+			return res
+				.status(401)
+				.json({ message: "Unauthorized - No Token Provided" });
 		}
 
 		let decoded;
@@ -29,13 +31,12 @@ export const protectRoute = async (req, res, next) => {
 	}
 };
 
-
 // import jwt from "jsonwebtoken";
 // import User from "../models/user.model.js";
 
 // export const protectRoute = async (req, res, next) => {
 // 	try {
-// 		const token = req.cookies["jwt-linkedin"];
+// 		const token = req.cookies["jwt-gather"];
 
 // 		if (!token) {
 // 			req.user = null;

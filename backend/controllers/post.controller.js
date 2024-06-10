@@ -1,14 +1,14 @@
 import cloudinary from "../lib/cloudinary.js";
 import Post from "../models/post.model.js";
-import User from "../models/user.model.js"
+import User from "../models/user.model.js";
 import Notification from "../models/notification.model.js";
 import { sendCommentNotificationEmail } from "../emails/emailHandlers.js";
 
-
-
 export const getFeedPosts = async (req, res) => {
 	try {
-		const posts = await Post.find({ author: { $in: [...req.user.connections, req.user._id] } })
+		const posts = await Post.find({
+			author: { $in: [...req.user.connections, req.user._id] },
+		})
 			.populate("author", "name username profilePicture headline")
 			.populate("comments.user", "name profilePicture")
 			.sort({ createdAt: -1 });
@@ -48,7 +48,6 @@ export const createPost = async (req, res) => {
 	}
 };
 
-
 export const updatePost = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -73,7 +72,6 @@ export const updatePost = async (req, res) => {
 	}
 };
 
-
 export const deletePost = async (req, res) => {
 	try {
 		const postId = req.params.id;
@@ -86,11 +84,15 @@ export const deletePost = async (req, res) => {
 		}
 
 		if (post.author.toString() !== userId.toString()) {
-			return res.status(403).json({ message: "You are not authorized to delete this post" });
+			return res
+				.status(403)
+				.json({ message: "You are not authorized to delete this post" });
 		}
 
 		if (post.image) {
-			await cloudinary.uploader.destroy(post.image.split("/").pop().split(".")[0]);
+			await cloudinary.uploader.destroy(
+				post.image.split("/").pop().split(".")[0],
+			);
 		}
 
 		await Post.findByIdAndDelete(postId);
@@ -116,7 +118,7 @@ export const getPostById = async (req, res) => {
 	}
 };
 
-// Create Comment 
+// Create Comment
 export const createComment = async (req, res) => {
 	try {
 		const postId = req.params.id;
@@ -131,7 +133,7 @@ export const createComment = async (req, res) => {
 		const updatedPost = await Post.findByIdAndUpdate(
 			postId,
 			{ $push: { comments: { user: userId, content } } },
-			{ new: true }
+			{ new: true },
 		);
 
 		if (!updatedPost) {
@@ -160,7 +162,7 @@ export const createComment = async (req, res) => {
 					});
 					await newNotification.save();
 
-					// const postUrl = `${process.env.CLIENT_URL || "https://linkedin-clone-dev.vercel.app"}/post/${postId}`;
+					// const postUrl = `${process.env.CLIENT_URL || "https://gather-dev.vercel.app"}/post/${postId}`;
 					const postUrl = `${process.env.CLIENT_URL}/post/${postId}`;
 
 					console.log("Sending comment email to:", postWithAuthor.author.email);
@@ -169,11 +171,14 @@ export const createComment = async (req, res) => {
 						postWithAuthor.author.name,
 						commenter.name,
 						postUrl,
-						content
+						content,
 					);
 					console.log("Comment notification email sent successfully!");
 				} catch (emailError) {
-					console.error("Error sending comment notification email:", emailError);
+					console.error(
+						"Error sending comment notification email:",
+						emailError,
+					);
 				}
 			})();
 		}
@@ -182,7 +187,6 @@ export const createComment = async (req, res) => {
 		res.status(500).json({ message: "Server error" });
 	}
 };
-
 
 // Delete a comment
 export const deleteComment = async (req, res) => {
@@ -208,7 +212,6 @@ export const deleteComment = async (req, res) => {
 	}
 };
 
-
 export const likePost = async (req, res) => {
 	try {
 		const postId = req.params.id;
@@ -216,7 +219,9 @@ export const likePost = async (req, res) => {
 		const userId = req.user._id;
 
 		if (post.likes.includes(userId)) {
-			post.likes = post.likes.filter((id) => id.toString() !== userId.toString());
+			post.likes = post.likes.filter(
+				(id) => id.toString() !== userId.toString(),
+			);
 		} else {
 			post.likes.push(userId);
 			if (post.author.toString() !== userId.toString()) {
@@ -239,5 +244,3 @@ export const likePost = async (req, res) => {
 		res.status(500).json({ message: "Server error" });
 	}
 };
-
-
